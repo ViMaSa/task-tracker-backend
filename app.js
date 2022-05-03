@@ -19,8 +19,13 @@ db.on('error', err => console.log(err.message + ' is Mongod not running?'));
 db.on('connected', () => console.log('Mongo connected: ', process.env.MONGO_URI));
 db.on('disconnected', () => console.log('Mongo disconnected'));
 
+const corsOptions = {
+  origin: 'https://victor-task-tracker.herokuapp.com/',
+  optionsSuccessStatus: 200,
+};
+
 app.use(morgan('short'));
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(urlencoded({extended: true}));
 app.use(express.json());
 
