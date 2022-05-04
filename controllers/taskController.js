@@ -4,7 +4,7 @@ const Task = require('../models/task');
 const cors = require('cors');
 
 const corsOptions = {
-  origin: WHITELISTED_SITES,
+  origin: process.env.WHITELISTED_SITES,
   optionsSuccessStatus: 200,
 };
 
