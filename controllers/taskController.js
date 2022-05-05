@@ -1,14 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const Task = require('../models/task');
-const cors = require('cors');
 
-const corsOptions = {
-  origin: process.env.WHITELISTED_SITES,
-  optionsSuccessStatus: 200,
-};
-
-router.get('/', cors(corsOptions), async (req, res) => {
+router.get('/', async (req, res) => {
   try {
     const tasks = await Task.find();
     res.send({
@@ -23,7 +17,7 @@ router.get('/', cors(corsOptions), async (req, res) => {
   }
 })
 
-router.post('/', cors(corsOptions), async (req, res) => {
+router.post('/', async (req, res) => {
   try {
     const newTask = await Task.create(req.body);
     res.send({
@@ -38,7 +32,7 @@ router.post('/', cors(corsOptions), async (req, res) => {
   }
 })
 
-router.get('/:id', cors(corsOptions), async (req, res) => {
+router.get('/:id', async (req, res) => {
   try {
     const task = await Task.findById(`${req.params.id}`);
     if(!task) {
@@ -56,7 +50,7 @@ router.get('/:id', cors(corsOptions), async (req, res) => {
   }
 })
 
-router.delete('/:id', cors(corsOptions), async (req, res) => {
+router.delete('/:id', async (req, res) => {
   try {
     const task = await Task.findByIdAndDelete(`${req.params.id}`);
     res.send({
@@ -71,7 +65,7 @@ router.delete('/:id', cors(corsOptions), async (req, res) => {
   }
 })
 
-router.put('/:id', cors(corsOptions), async (req, res) => {
+router.put('/:id', async (req, res) => {
   try {
     const task = await Task.findByIdAndUpdate(req.params.id, req.body, {new: true});
     res.send({
